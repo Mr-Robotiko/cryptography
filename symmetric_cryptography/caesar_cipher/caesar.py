@@ -1,4 +1,5 @@
 import string
+from typing import List
 
 
 class Caesar:
@@ -16,7 +17,7 @@ class Caesar:
         return encrypted_message
 
     @staticmethod
-    def decrypt(key: int, ciphertext):
+    def decrypt(key: int, ciphertext) -> str:
         decrypted_message: str = ""
         for char in ciphertext:
             alphabet_index: int = Caesar.alphabet.find(char)
@@ -26,8 +27,17 @@ class Caesar:
         print(decrypted_message)
         return decrypted_message
 
+    @staticmethod
+    def brute_force(ciphertext: str) -> List[str]:
+        lookup_list: List = list()
+        for i in range(len(Caesar.alphabet)):
+            word: str = Caesar.decrypt(i, ciphertext)
+            lookup_list.append(word)
+        return lookup_list
+
 
 if __name__ == '__main__':
     c = Caesar()
     c.decrypt(2, c.encrypt(2, "hallo"))
+    c.brute_force("Test")
 
